@@ -1,0 +1,52 @@
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" routerLink="/">myShopping</a>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <!--links-->
+     
+     
+      <li class="nav-item">
+        <a class="nav-link" routerLink="app-shopping-cart">Shopping Cart</a>
+      </li>
+      
+      <!--if we dont have a user show the login button-->
+       <!--if we dont have it render this item-->
+       <ng-template #anonymousUser>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="app-login">Login</a>
+        </li>
+      </ng-template>
+     
+
+
+    <!--drop-down-->
+  
+    
+    <!--show the drop down  if we have a user object-->
+    <li ngbDropdown *ngIf="appUser; else anonymousUser" class="nav-item dropdown">
+        
+        <!-- we display the user-->
+        <a  ngbDropdownToggle class="nav-link dropdown-toggle"  id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ appUser.name }}</a>
+        
+        <!--dropdown links show this only if we have a user object-->
+        <div ngbDropdownMenu class="dropdown-menu " aria-labelledby="dropdown01">
+          <a class="dropdown-item" routerLink="app-myorders">My Orders</a>
+
+          <ng-container *ngIf="appUser.isAdmin">
+              <a class="dropdown-item" routerLink="/admin/orders">Manage Orders</a>
+              <a class="dropdown-item" routerLink="/admin/products">Manage Products</a>
+            </ng-container>
+          
+          <a class="dropdown-item"(click)="logout()">Logout</a>
+        </div>
+      </li>
+    </ul>
+
+    
+  </div>
+</nav>
